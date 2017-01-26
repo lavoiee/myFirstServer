@@ -14,8 +14,8 @@ namespace myFirstServer
 {
     class Program
     {
-        static int minPort = 1;
-        static int maxPort = 65536;
+        const int minPort = 1;
+        const int maxPort = 65536;
         static Socket client;
         static NetworkStream netstream;
         
@@ -26,12 +26,19 @@ namespace myFirstServer
             Console.Title = "Server";
             DisplayHeader();
             port = GetValidPort();
+            DisplayPortFeedback(port);
 
             IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
             TcpListener tcplistener = new TcpListener(ipAddress, port);
         }
 
-        
+        private static void DisplayPortFeedback(int x)
+        {
+            int feedback = x;
+            DisplayHeader();
+            Console.WriteLine($"The server will listen for incoming connections on port: {feedback}");
+            DisplayContinuePrompt();
+        }
 
         private static int GetValidPort()
         {
